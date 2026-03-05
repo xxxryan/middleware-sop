@@ -9,11 +9,11 @@ image:
 architecture: standalone
 
 auth:
-  rootPassword: "root"
+  rootPassword: "ChangeMe_Root_123!"
   createDatabase: true
-  database: apollo
-  username: apollo
-  password: "apollo"
+  database: app
+  username: app_user
+  password: "ChangeMe_App_123!"
 
 primary:
   service:
