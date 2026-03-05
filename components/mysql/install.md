@@ -8,15 +8,9 @@
 
 3. 准备一个 namespace（示例使用 `xdev`）
 
-## 安装 Helm Chart（Bitnami 仓库）
+## Chart 说明
 
-添加 chart repo：
-
-```bash
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm repo update
-helm search repo bitnami/mysql
-```
+当前目录是一个本地 Helm Chart，使用 MySQL 官方镜像 `docker.io/mysql`。
 
 ## 准备 values.yaml
 
@@ -24,11 +18,11 @@ helm search repo bitnami/mysql
 
 - `auth.rootPassword`
 - `auth.password`
-- `primary.persistence.storageClass`（如集群有默认 StorageClass 可留空）
+- `persistence.storageClass`（如集群有默认 StorageClass 可留空）
 
 配置文件：
 
-[values.yaml](./values.yaml)
+`components/mysql/values.yaml`
 
 ## 安装 MySQL
 
@@ -36,8 +30,8 @@ helm search repo bitnami/mysql
 helm upgrade --install mysql \
   -n xdev \
   --create-namespace \
-  -f values.yaml \
-  bitnami/mysql
+  -f components/mysql/values.yaml \
+  ./components/mysql
 ```
 
 ## 验证部署状态
@@ -54,8 +48,8 @@ kubectl get svc -n xdev
 ```bash
 kubectl run mysql-client --rm -it --restart=Never \
   -n xdev \
-  --image=bitnami/mysql:8.0.36-debian-12-r0 \
-  --command -- mysql -hmysql.xdev.svc.cluster.local -P3306 -uapollo -papollo -e "SELECT 1;"
+  --image=mysql:8.4.0 \
+  --command -- mysql -hmysql.xdev.svc.cluster.local -P3306 -uapp_user -pChangeMe_App_123! -e "SELECT 1;"
 ```
 
 如果返回 `1` 则表示连接成功。

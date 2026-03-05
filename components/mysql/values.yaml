@@ -1,12 +1,13 @@
 fullnameOverride: mysql
 
+nameOverride: ""
+
 image:
   registry: docker.io
-  repository: bitnami/mysql
-  tag: "8.0.36-debian-12-r0"
+  repository: mysql
+  tag: "8.4.0"
   pullPolicy: IfNotPresent
-
-architecture: standalone
+  pullSecrets: []
 
 auth:
   rootPassword: "ChangeMe_Root_123!"
@@ -15,53 +16,45 @@ auth:
   username: app_user
   password: "ChangeMe_App_123!"
 
-primary:
-  service:
-    type: ClusterIP
-    ports:
-      mysql: 3306
+service:
+  type: ClusterIP
+  port: 3306
 
-  persistence:
-    enabled: true
-    storageClass: ""
-    accessModes:
-      - ReadWriteOnce
-    size: 20Gi
+persistence:
+  enabled: true
+  storageClass: ""
+  accessMode: ReadWriteOnce
+  size: 20Gi
 
-  resources:
-    requests:
-      cpu: 250m
-      memory: 512Mi
-    limits:
-      cpu: "1"
-      memory: 2Gi
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    cpu: "1"
+    memory: 2Gi
 
-  livenessProbe:
-    enabled: true
+probes:
+  liveness:
     initialDelaySeconds: 30
     periodSeconds: 10
     timeoutSeconds: 5
     failureThreshold: 6
-
-  readinessProbe:
-    enabled: true
+  readiness:
     initialDelaySeconds: 10
     periodSeconds: 10
     timeoutSeconds: 5
     failureThreshold: 6
-
-  startupProbe:
-    enabled: true
+  startup:
     initialDelaySeconds: 15
     periodSeconds: 10
     timeoutSeconds: 5
     failureThreshold: 30
 
-secondary:
-  replicaCount: 0
+initdbScripts: {}
 
-metrics:
-  enabled: false
-
-networkPolicy:
-  enabled: false
+extraEnv: []
+podAnnotations: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
