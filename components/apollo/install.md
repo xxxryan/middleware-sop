@@ -1,4 +1,4 @@
-# install
+# Install
 
 ## 前置准备清单
 
@@ -6,9 +6,9 @@
 
 2. Helm 3 可用（Chart 要求）
 
-3. 集群内已有 MySQL Service（例如 mysql.mysql.svc.cluster.local:3306）
+3. 集群内已有 MySQL Service（例如 mysql.xdev.svc.cluster.local:3306）
 
-4. 准备一个 namespace（建议 apollo）
+4. 准备一个 namespace（例如 xdev）
 
 ## 安装 Helm Chart（官方仓库）
 
@@ -30,7 +30,7 @@ helm search repo apollo
 
 ```bash
 helm upgrade --install apollo-service \
-  -n apollo \
+  -n xdev \
   -f values-apollo-service.yaml \
   apollo/apollo-service
 ```
@@ -53,7 +53,7 @@ Portal chart 需要配置：
 
 ```bash
 helm upgrade --install apollo-portal \
-  -n apollo \
+  -n xdev \
   -f values-apollo-portal.yaml \
   apollo/apollo-portal
 ```

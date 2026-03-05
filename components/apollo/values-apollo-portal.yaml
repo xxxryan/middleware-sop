@@ -1,11 +1,11 @@
 # values-apollo-portal.yaml
 portaldb:
-  host: mysql.mysql.svc.cluster.local   # 你的 MySQL Service DNS
+  host: mysql.xdev.svc.cluster.local
   port: 3306
   dbName: ApolloPortalDB
   userName: apollo
-  password: REPLACE_ME
-  connectionStringProperties: characterEncoding=utf8&useSSL=false
+  password: apollo
+  connectionStringProperties: characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
   service:
     enabled: false
 
@@ -19,7 +19,7 @@ config:
   profiles: "github,auth"
   envs: "dev"  # 单集群单环境也要给一个名字
   metaServers:
-    dev: "http://apollo-service-apollo-configservice:8080"  # 指向 configservice service
+    dev: "http://apollo-service-apollo-configservice.xdev.svc.cluster.local:8080"
 
 service:
   type: ClusterIP
