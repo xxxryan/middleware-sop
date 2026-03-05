@@ -1,0 +1,35 @@
+# values-apollo-portal.yaml
+portaldb:
+  host: mysql.mysql.svc.cluster.local   # 你的 MySQL Service DNS
+  port: 3306
+  dbName: ApolloPortalDB
+  userName: apollo
+  password: REPLACE_ME
+  connectionStringProperties: characterEncoding=utf8&useSSL=false
+  service:
+    enabled: false
+
+replicaCount: 1   # 内网测试 1 够；生产建议 2
+
+image:
+  repository: apolloconfig/apollo-portal
+  tag: "2.5.0"    # 锁版本
+
+config:
+  profiles: "github,auth"
+  envs: "dev"  # 单集群单环境也要给一个名字
+  metaServers:
+    dev: "http://apollo-service-apollo-configservice:8080"  # 指向 configservice service
+
+service:
+  type: ClusterIP
+  port: 8070
+  targetPort: 8070
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 512Mi
+  limits:
+    cpu: "1"
+    memory: 2Gi

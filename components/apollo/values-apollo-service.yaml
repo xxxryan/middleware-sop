@@ -1,0 +1,38 @@
+# values-apollo-service.yaml
+configdb:
+  host: mysql.mysql.svc.cluster.local   # 改成你真实的 MySQL Service DNS
+  port: 3306
+  dbName: ApolloConfigDB
+  userName: apollo
+  password: REPLACE_ME
+  connectionStringProperties: characterEncoding=utf8&useSSL=false
+  service:
+    enabled: false
+
+configService:
+  replicaCount: 2        # 内网测试 2 够用；生产建议 3+
+  image:
+    repository: apolloconfig/apollo-configservice
+    tag: "2.5.0"         # 建议锁版本（示例用 Apollo 2.5.0）
+  config:
+    profiles: "github,kubernetes"
+  resources:
+    requests:
+      cpu: 200m
+      memory: 512Mi
+    limits:
+      cpu: "1"
+      memory: 2Gi
+
+adminService:
+  replicaCount: 1        # 内网测试 1 够用；生产建议 2
+  image:
+    repository: apolloconfig/apollo-adminservice
+    tag: "2.5.0"         # 同步锁版本 :contentReference[oaicite:9]{index=9}
+  resources:
+    requests:
+      cpu: 200m
+      memory: 512Mi
+    limits:
+      cpu: "1"
+      memory: 2Gi
