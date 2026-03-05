@@ -5,7 +5,7 @@ configdb:
   dbName: ApolloConfigDB
   userName: apollo
   password: apollo
-  connectionStringProperties: characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+  connectionStringProperties: "useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai"
   service:
     enabled: false
 
@@ -15,7 +15,7 @@ configService:
     repository: apolloconfig/apollo-configservice
     tag: "2.5.0"         # 建议锁版本（示例用 Apollo 2.5.0）
   config:
-    profiles: "github,kubernetes"
+    profiles: "github"
   resources:
     requests:
       cpu: 200m
@@ -29,6 +29,8 @@ adminService:
   image:
     repository: apolloconfig/apollo-adminservice
     tag: "2.5.0"
+  config:
+    profiles: "github"
   resources:
     requests:
       cpu: 200m

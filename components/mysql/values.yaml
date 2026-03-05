@@ -10,11 +10,11 @@ image:
   pullSecrets: []
 
 auth:
-  rootPassword: "ChangeMe_Root_123!"
+  rootPassword: "root"
   createDatabase: true
-  database: app
-  username: app_user
-  password: "ChangeMe_App_123!"
+  database: xdev
+  username: xdev
+  password: "1234"
 
 service:
   type: ClusterIP

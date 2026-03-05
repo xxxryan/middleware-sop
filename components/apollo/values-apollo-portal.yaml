@@ -5,7 +5,7 @@ portaldb:
   dbName: ApolloPortalDB
   userName: apollo
   password: apollo
-  connectionStringProperties: characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+  connectionStringProperties: "useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai"
   service:
     enabled: false
 
